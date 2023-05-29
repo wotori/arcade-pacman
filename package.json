@@ -1,4 +1,7 @@
 {
+  "name": "pacman-arcade",
+  "source": "index.html",
+  "browserslist": "> 25%, last 2 versions, not dead",
   "engines": {
     "node": "18.4.0",
     "npm": "8.12.1"
@@ -9,6 +12,11 @@
   },
   "scripts": {
     "dev": "cp -r ./public ./dist && parcel ./index.html",
-    "serve": "http-server ./"
+    "build": "rm -rf production/ && parcel build ./index.html --no-source-maps --dist-dir production && cp -r ./public/* ./production",
+    "build2": "parcel build",
+    "serve": "http-server ./",
+    "serve2": "parcel serve index.html",
+    "serveprod": "http-server ./production",
+    "clear": "rm -rf .parcel-cache && rm -rf dist && rm -rf production"
   }
 }

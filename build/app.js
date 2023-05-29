@@ -3213,3 +3213,7 @@ class Timer {
   }
 }
 
+window.onload = () => {
+  let gameCoordinator = new GameCoordinator();
+  console.log("gameCoordinator is laoded", gameCoordinator)
+}
