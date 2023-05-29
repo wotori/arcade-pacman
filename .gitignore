@@ -4,3 +4,4 @@
 yarn-error.log
 production
 dist
+.DS_Store

@@ -1,23 +1,33 @@
-# pacman-js
-[![Build Status](https://travis-ci.com/bward2/pacman-js.svg?branch=master)](https://travis-ci.com/bward2/pacman-js)
-[![Coverage Status](https://coveralls.io/repos/github/bward2/pacman-js/badge.svg?branch=master)](https://coveralls.io/github/bward2/pacman-js?branch=master)
-[![Code Style](https://img.shields.io/badge/code%20style-airbnb-brightgreen.svg)](https://github.com/airbnb/javascript)
+# arcade-pacman
 
-Pacman clone made with Javascript, HTML, and CSS.
+This repository is a fork from the original [pacman-js](https://github.com/bward2/pacman-js) project. The objective of this project is to implement a scoreboard and update the source project to be compatible with the latest version of Parcel and JavaScript in general. Additionally, import/export features was implemented for smooth comilation with Parcel.
+****
+<p float="left">
+  <img src="pacman_1.png" width="300" />
+  <img src="pacman_2.png" width="300" /> 
+</p>
 
-### *__[Play it!](https://bward2.github.io/pacman-js/)__*
 
-🍒🍓🍊🍎🍈👾🔔🔑
+## Additional features
 
-## Development Instructions
+- Basic score board implementation
+- Parcel compilation and development
+- Further updates will be made in the near future, probably...
 
-This project makes use of *__[NodeJS](https://nodejs.org/en/)__*. Download it, then clone this repo and run the following commands:  
-1. `npm i` (Installs necessary packages for development)
-1. `gulp watch` (Watches changes to JS and SCSS files for continuous compilation)
-1. `npm run serve` (Hosts the files locally)
+## Installation
 
-The game can now be accessed at *__http://127.0.0.1:8080/index__*
+1. Clone the repository
+2. Navigate to the project directory using `cd arcade-pacman`
+3. Install the dependencies using `yarn install`
 
-This project also utilizes *__[Husky](https://github.com/typicode/husky)__* to enforce best coding practices. The current thresholds are 0 linting errors upon commits (following Airbnb's standard), and 100% unit test code coverage upon pushes.
+## Usage
 
-Feel free to submit PRs and/or report any issues you find! 😃
+To start the project, run `yarn dev` and navigate to the suggested address (in terminal).
+
+## Contributing
+
+Contributions to the project are welcome! It would be fantastic to maintain this piece of code up-to-date with the latest technology.
+
+## License
+
+This project is licensed under the MIT License. See `LICENSE` for more information.
