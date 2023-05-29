@@ -16,7 +16,7 @@
     "build2": "parcel build",
     "serve": "http-server ./",
     "serve2": "parcel serve index.html",
-    "serveprod": "http-server ./production",
+    "serve3": "http-server ./production && cp -r ./public/* ./production",
     "clear": "rm -rf .parcel-cache && rm -rf dist && rm -rf production"
   }
 }

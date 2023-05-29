@@ -1109,7 +1109,7 @@ class Pacman {
 }
 
 
-class GameCoordinator {
+export class GameCoordinator {
   constructor() {
     this.gameUi = document.getElementById('game-ui');
     this.rowTop = document.getElementById('row-top');
@@ -1209,14 +1209,9 @@ class GameCoordinator {
       this.soundButtonClick.bind(this),
     );
 
-    const head = document.getElementsByTagName('head')[0];
-    const link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.href = 'build/app.css';
-
-    link.onload = this.preloadAssets.bind(this);
-
-    head.appendChild(link);
+    setTimeout(() => {
+      this.preloadAssets();
+    }, 100);
   }
 
   /**
@@ -3211,9 +3206,4 @@ class Timer {
       }
     }
   }
-}
-
-window.onload = () => {
-  let gameCoordinator = new GameCoordinator();
-  console.log("gameCoordinator is laoded", gameCoordinator)
 }

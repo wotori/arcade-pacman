@@ -1,5 +1,6 @@
-console.log("init smc module...")
-function executeSmartContract(score) {
+console.log("init smc module...");
+
+export function executeSmartContract(score) {
   console.log("score", score);
   let nickName = document.getElementById("nickName").value;
   if (!nickName) {
