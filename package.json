@@ -7,16 +7,18 @@
     "npm": "8.12.1"
   },
   "devDependencies": {
+    "gh-pages": "^5.0.0",
     "http-server": "^14.1.1",
     "parcel": "^2.9.1"
   },
   "scripts": {
     "dev": "cp -r ./public ./dist && parcel ./index.html",
-    "build": "rm -rf production/ && parcel build ./index.html --no-source-maps --dist-dir production && cp -r ./public/* ./production",
-    "build2": "parcel build",
-    "serve": "http-server ./",
-    "serve2": "parcel serve index.html",
-    "serve3": "http-server ./production && cp -r ./public/* ./production",
-    "clear": "rm -rf .parcel-cache && rm -rf dist && rm -rf production"
+    "build": "rm -rf dist/ && parcel build ./index.html --no-source-maps && cp -r ./public/* ./dist",
+    "build2": "rm -rf dist/ && parcel build ./index.html --public-url ./ && cp -r ./public/* ./dist",
+    "buildghp": "rm -rf dist/ && parcel build ./index.html --no-source-maps --public-url https://wotori.github.io/arcade-pacman/ && cp -r ./public/* ./dist",
+    "serve": "http-server ./dist",
+    "clear": "rm -rf .parcel-cache && rm -rf dist",
+    "ghp": "git subtree push --prefix dist origin gh-pages",
+    "deploy": "gh-pages -d dist"
   }
 }

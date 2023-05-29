@@ -1,6 +1,6 @@
 /node_modules
 /.nyc_output
 .parcel-cache
-dist/
 yarn-error.log
 production
+dist
