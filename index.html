@@ -9,7 +9,9 @@
       gtag('config', 'UA-142539004-1');
     </script>
 
+    <script type="module" src='build/app.js'></script>
     <script src='build/app.js'></script>
+    <link rel="stylesheet" href="build/app.css" />
     <link rel='shortcut icon' type='image/x-icon' href='favicon.ico'>
     <link href='https://fonts.googleapis.com/css?family=Press+Start+2P&display=swap' rel='stylesheet'>
     <link href='https://fonts.googleapis.com/icon?family=Material+Icons'
@@ -26,10 +28,15 @@
 
       <div id='main-menu-container' class='main-menu-container'>
         <img id='logo' class='logo' src='app/style/graphics/pacman_logo.png'>
+        <input placeholder="nickName" id="nickName" style="margin: 10px;"/>
         <button id='game-start' class='game-start'>
           PLAY!
         </button>
-      </div>
+        <div style="margin: 100px; width: 90%; 
+                    color: black; 
+                    overflow: auto; text-align: center;" 
+                    id="scoreboard"></div>
+        </div>
 
       <div class='header-buttons'>
         <button>
@@ -59,7 +66,7 @@
         </div>
 
         <div id='maze' class='maze'>
-          <img id='maze-img' class='maze-img' src='app/style//graphics/spriteSheets/maze/maze_blue.svg'>
+          <img id='maze-img' class='maze-img' src='app/style/graphics/spriteSheets/maze/maze_blue.svg'>
           <div id='maze-cover' class='maze-cover'></div>
           <div id='dot-container'></div>
           <p id='pacman' class='pacman'></p>
@@ -137,9 +144,37 @@
       </div>
 
       <script>
-        window.onload = () => {
+          window.onload = () => {
           let gameCoordinator = new GameCoordinator();
+          console.log("gameCoordinator is laoded", gameCoordinator)
         }
+      </script>
+      <script>
+        // load scoreboard
+        async function logJSONData() {
+          const responseList = document.getElementById("scoreboard");
+
+          // const response = await fetch("https://api.github.com/users/hadley/orgs");
+          // const jsonData = await response.json();
+          // console.log(jsonData);
+          
+          // for (let i = 0; i < jsonData.length; i++) {
+          //   console.log("iterating...", i)
+          //   const name = jsonData[i].login;
+          //   const scoreElements = document.createElement("div");
+          //   scoreElements.innerHTML = `<a>${name}</a>`;
+          //   responseList.appendChild(scoreElements);
+          // }
+
+          for (let i = 0; i < 100; i++) {
+            const userName = "Wotori"
+            const scoreElements = document.createElement("div");
+            scoreElements.innerHTML = `<p style="margin: 3px">${i+1} - ${userName} - score</p>`;
+            responseList.appendChild(scoreElements);
+          }
+      }
+        logJSONData();
+
       </script>
     </div>
   </body>

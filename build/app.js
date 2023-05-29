@@ -1,3 +1,4 @@
+console.log("init app.js module...")
 class Ghost {
   constructor(
     scaledTileSize, mazeArray, pacman, name, level, characterUtil, blinky,
@@ -1292,6 +1293,7 @@ class GameCoordinator {
    * Displays an error message in the event assets are unable to download
    */
   displayErrorMessage() {
+    console.log("display error message")
     const loadingContainer = document.getElementById('loading-container');
     const errorMessage = document.getElementById('error-message');
     loadingContainer.style.opacity = 0;
@@ -1307,12 +1309,13 @@ class GameCoordinator {
    * There is probably a better way to read all of these file names.
    */
   preloadAssets() {
+    console.log("preload assets...")
     return new Promise((resolve) => {
       const loadingContainer = document.getElementById('loading-container');
       const loadingPacman = document.getElementById('loading-pacman');
       const loadingDotMask = document.getElementById('loading-dot-mask');
 
-      const imgBase = 'app/style/graphics/spriteSheets/';
+      const imgBase = '/app/style/graphics/spriteSheets/';
       const imgSources = [
         // Pacman
         `${imgBase}characters/pacman/arrow_down.svg`,
@@ -1442,7 +1445,10 @@ class GameCoordinator {
             this.mainMenu.style.visibility = 'visible';
           }, 1500);
         })
-        .catch(this.displayErrorMessage);
+        .catch((e)=> {
+          console.log("load error:", e)
+          this.displayErrorMessage();
+        });
     });
   }
 
@@ -1989,9 +1995,13 @@ class GameCoordinator {
   /**
    * Displays GAME OVER text and displays the menu so players can play again
    */
+  executeContract() {
+    console.log("Execute smart contract, check and set new hight score", this.highScore) // TODO: this should be done
+  }
   gameOver() {
     localStorage.setItem('highScore', this.highScore);
-
+    // this.executeContract()
+    executeSmartContract(this.highScore)
     new Timer(() => {
       this.displayText(
         {
@@ -2100,7 +2110,7 @@ class GameCoordinator {
     this.removeTimer({ detail: { timer: this.endIdleTimer } });
     this.removeTimer({ detail: { timer: this.ghostFlashTimer } });
 
-    const imgBase = 'app/style//graphics/spriteSheets/maze/';
+    const imgBase = 'app/style/graphics/spriteSheets/maze/';
 
     new Timer(() => {
       this.ghosts.forEach((ghost) => {
