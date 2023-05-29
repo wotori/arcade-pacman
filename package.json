@@ -8,7 +8,7 @@
     "parcel": "^2.9.1"
   },
   "scripts": {
-    "dev": "parcel ./index.html",
+    "dev": "cp -r ./public ./dist && parcel ./index.html",
     "serve": "http-server ./"
   }
 }
