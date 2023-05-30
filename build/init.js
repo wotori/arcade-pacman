@@ -1,6 +1,7 @@
 import { GameCoordinator } from "./app";
 import { executeTransaction } from "../src/execute";
 import styles from "./app.css";
+import { connectKeplr } from "../src/keplr";
 
 export function initCoordinator() {
   console.log("init coordinator");
@@ -36,5 +37,6 @@ async function loadScoreboard() {
 window.onload = () => {
   initCoordinator();
   loadScoreboard();
-  executeTransaction()
+  connectKeplr()
+  // executeTransaction() // test transaction
 };

@@ -26,6 +26,7 @@
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
-    "@archwayhq/arch3.js": "^0.2.0"
+    "@archwayhq/arch3.js": "^0.2.0",
+    "@cosmjs/launchpad": "^0.27.1"
   }
 }
