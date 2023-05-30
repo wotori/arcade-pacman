@@ -1,4 +1,5 @@
 import { GameCoordinator } from "./app";
+import { executeTransaction } from "../src/execute";
 import styles from "./app.css";
 
 export function initCoordinator() {
@@ -35,4 +36,5 @@ async function loadScoreboard() {
 window.onload = () => {
   initCoordinator();
   loadScoreboard();
+  executeTransaction()
 };
