@@ -1,4 +1,7 @@
 console.log("init app.js module...")
+import { calculateFee } from "@cosmjs/stargate";
+import { executeSmartContract} from "./smc"
+import { signingClient, walletAddress } from "../src/keplr";
 class Ghost {
   constructor(
     scaledTileSize, mazeArray, pacman, name, level, characterUtil, blinky,
@@ -1248,23 +1251,34 @@ export class GameCoordinator {
   /**
    * Reveals the game underneath the loading covers and starts gameplay
    */
-  startButtonClick() {
+  async startButtonClick() {
     console.log("clicked") // TODO: add execute smart contract here....
-    this.leftCover.style.left = '-50%';
-    this.rightCover.style.right = '-50%';
-    this.mainMenu.style.opacity = 0;
-    this.gameStartButton.disabled = true;
+    console.log("loading...")
+    console.log("signing client: ", signingClient, walletAddress)
 
-    setTimeout(() => {
-      this.mainMenu.style.visibility = 'hidden';
-    }, 1000);
-
-    this.reset();
-    if (this.firstGame) {
-      this.firstGame = false;
-      this.init();
-    }
-    this.startGameplay(true);
+    signingClient.execute(
+      walletAddress[0].address,
+      "archway17ef78dfdajz7hzzky6dev8dccmsczwktuzfwcrnfgs4rlk6qxkqs7ampla",
+      {"increment": {}},
+      calculateFee(600_000, "20aconst")
+    )
+    .then(() => {
+      this.leftCover.style.left = '-50%';
+      this.rightCover.style.right = '-50%';
+      this.mainMenu.style.opacity = 0;
+      this.gameStartButton.disabled = true;
+  
+      setTimeout(() => {
+        this.mainMenu.style.visibility = 'hidden';
+      }, 1000);
+  
+      this.reset();
+      if (this.firstGame) {
+        this.firstGame = false;
+        this.init();
+      }
+      this.startGameplay(true);
+    });
   }
 
   /**

@@ -51,10 +51,14 @@ export async function connectKeplr() {
   });
 }
 
+export let offlineSigner;
+export let walletAddress;
+export let signingClient;
+
 export async function loadData() {
   // get wallet address
-  const offlineSigner = window.getOfflineSigner(CHAIN_ID);
-  let walletAddress = await offlineSigner.getAccounts();
+  offlineSigner = window.getOfflineSigner(CHAIN_ID);
+  walletAddress = await offlineSigner.getAccounts();
   console.log("user wallet loaded: ", walletAddress[0].address);
 
   signingClient = await SigningCosmWasmClient.connectWithSigner(
@@ -70,6 +74,6 @@ export async function loadData() {
   let response = await signingClient.queryContractSmart(incrementAddress, {
     get_count: {},
   });
-  
+
   console.log("get contract response: ", response);
 }
