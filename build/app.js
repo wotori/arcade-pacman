@@ -1261,9 +1261,10 @@ export class GameCoordinator {
         walletAddress[0].address,
         "archway17ef78dfdajz7hzzky6dev8dccmsczwktuzfwcrnfgs4rlk6qxkqs7ampla",
         {"increment": {}},
-        calculateFee(600_000, "20aconst")
+        "auto"
       )
-      .then(() => {
+      .then((r) => {
+        console.log("smart contract executed?: ", r)
         this.leftCover.style.left = '-50%';
         this.rightCover.style.right = '-50%';
         this.mainMenu.style.opacity = 0;
@@ -2008,13 +2009,10 @@ export class GameCoordinator {
   /**
    * Displays GAME OVER text and displays the menu so players can play again
    */
-  executeContract() {
-    console.log("Execute smart contract, check and set new hight score", this.highScore) // TODO: this should be done
-  }
-  gameOver() {
+  async gameOver() {
     localStorage.setItem('highScore', this.highScore);
-    // this.executeContract()
-    executeSmartContract(this.highScore)
+    console.log("Execute smart contract, check and set new hight score", this.highScore) // TODO: this should be done
+    await executeSmartContract(this.highScore)
     new Timer(() => {
       this.displayText(
         {

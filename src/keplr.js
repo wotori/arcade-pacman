@@ -1,4 +1,5 @@
 import { SigningCosmWasmClient } from "@cosmjs/cosmwasm-stargate";
+import { GasPrice } from "@cosmjs/stargate";
 
 const CHAIN_ID = "constantine-3";
 const RPC = "https://rpc.constantine.archway.tech";
@@ -25,7 +26,7 @@ export async function connectKeplr() {
       {
         coinDenom: "CONST",
         coinMinimalDenom: "aconst",
-        coinDecimals: 6,
+        coinDecimals: 18,
         coinGeckoId: undefined,
       },
     ],
@@ -64,7 +65,7 @@ export async function loadData() {
   signingClient = await SigningCosmWasmClient.connectWithSigner(
     RPC,
     offlineSigner,
-    { gasPrice: "auto" }
+    { gasPrice: GasPrice.fromString('0.02aconst'), }
   );
 
   // query smc state
