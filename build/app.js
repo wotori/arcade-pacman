@@ -1256,29 +1256,33 @@ export class GameCoordinator {
     console.log("loading...")
     console.log("signing client: ", signingClient, walletAddress)
 
-    signingClient.execute(
-      walletAddress[0].address,
-      "archway17ef78dfdajz7hzzky6dev8dccmsczwktuzfwcrnfgs4rlk6qxkqs7ampla",
-      {"increment": {}},
-      calculateFee(600_000, "20aconst")
-    )
-    .then(() => {
-      this.leftCover.style.left = '-50%';
-      this.rightCover.style.right = '-50%';
-      this.mainMenu.style.opacity = 0;
-      this.gameStartButton.disabled = true;
-  
-      setTimeout(() => {
-        this.mainMenu.style.visibility = 'hidden';
-      }, 1000);
-  
-      this.reset();
-      if (this.firstGame) {
-        this.firstGame = false;
-        this.init();
-      }
-      this.startGameplay(true);
-    });
+    if (signingClient){
+      signingClient.execute(
+        walletAddress[0].address,
+        "archway17ef78dfdajz7hzzky6dev8dccmsczwktuzfwcrnfgs4rlk6qxkqs7ampla",
+        {"increment": {}},
+        calculateFee(600_000, "20aconst")
+      )
+      .then(() => {
+        this.leftCover.style.left = '-50%';
+        this.rightCover.style.right = '-50%';
+        this.mainMenu.style.opacity = 0;
+        this.gameStartButton.disabled = true;
+    
+        setTimeout(() => {
+          this.mainMenu.style.visibility = 'hidden';
+        }, 1000);
+    
+        this.reset();
+        if (this.firstGame) {
+          this.firstGame = false;
+          this.init();
+        }
+        this.startGameplay(true);
+      });
+    } else{
+      alert("this is blockchain based arcade, you have to install keplr to be able to play and store result")
+    }
   }
 
   /**
