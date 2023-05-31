@@ -1,7 +1,8 @@
 console.log("init app.js module...")
-import { calculateFee } from "@cosmjs/stargate";
-import { executeSmartContract} from "./smc"
+import { executeStoreWinner} from "./smc"
 import { signingClient, walletAddress } from "../src/keplr";
+import { getWinnerLocal } from "../src/utils";
+import { loadScoreboard } from "./init";
 class Ghost {
   constructor(
     scaledTileSize, mazeArray, pacman, name, level, characterUtil, blinky,
@@ -1125,6 +1126,7 @@ export class GameCoordinator {
     this.fruitDisplay = document.getElementById('fruit-display');
     this.mainMenu = document.getElementById('main-menu-container');
     this.gameStartButton = document.getElementById('game-start');
+    this.gameStartButton2 = document.getElementById('logo');
     this.pauseButton = document.getElementById('pause-button');
     this.soundButton = document.getElementById('sound-button');
     this.leftCover = document.getElementById('left-cover');
@@ -1206,6 +1208,10 @@ export class GameCoordinator {
       'click',
       this.startButtonClick.bind(this),
     );
+    this.gameStartButton2.addEventListener(
+      'click',
+      this.startButtonClick2.bind(this),
+    );
     this.pauseButton.addEventListener('click', this.handlePauseKey.bind(this));
     this.soundButton.addEventListener(
       'click',
@@ -1282,8 +1288,28 @@ export class GameCoordinator {
         this.startGameplay(true);
       });
     } else{
-      alert("this is blockchain based arcade, you have to install keplr to be able to play and store result")
+      alert("this is blockchain based arcade, you have to install keplr to be able to play and store result. To play without keplr press the logo. But we will be unble to store you score record")
     }
+  }
+
+  // free to play
+  async startButtonClick2() {
+    console.log("clicked") // TODO: add execute smart contract here....
+    this.leftCover.style.left = '-50%';
+    this.rightCover.style.right = '-50%';
+    this.mainMenu.style.opacity = 0;
+    this.gameStartButton.disabled = true;
+
+    setTimeout(() => {
+      this.mainMenu.style.visibility = 'hidden';
+    }, 1000);
+
+    this.reset();
+    if (this.firstGame) {
+      this.firstGame = false;
+      this.init();
+    }
+    this.startGameplay(true);
   }
 
   /**
@@ -1534,7 +1560,7 @@ export class GameCoordinator {
     this.allowPacmanMovement = false;
     this.allowPause = false;
     this.cutscene = true;
-    this.highScore = localStorage.getItem('highScore');
+    this.highScore = getWinnerLocal();
 
     if (this.firstGame) {
       setInterval(() => {
@@ -2011,8 +2037,9 @@ export class GameCoordinator {
    */
   async gameOver() {
     localStorage.setItem('highScore', this.highScore);
-    console.log("Execute smart contract, check and set new hight score", this.highScore) // TODO: this should be done
-    await executeSmartContract(this.highScore)
+    console.log("Execute smart contract, check and set new hight score: ", this.points) // TODO: this should be done
+    await executeStoreWinner(this.points)
+    await loadScoreboard()
     new Timer(() => {
       this.displayText(
         {

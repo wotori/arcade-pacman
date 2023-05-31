@@ -2,6 +2,7 @@ import { GameCoordinator } from "./app";
 import { executeTransaction } from "../src/execute";
 import styles from "./app.css";
 import { connectKeplr, loadData } from "../src/keplr";
+import { getUserLocal, saveUserLocal, saveWinnerLocal } from "../src/utils";
 
 export function initCoordinator() {
   console.log("init coordinator");
@@ -9,29 +10,29 @@ export function initCoordinator() {
   console.log("gameCoordinator is laoded", gameCoordinator);
 }
 
-async function loadScoreboard() {
+export async function loadScoreboard() {
   const responseList = document.getElementById("scoreboard");
-
-  // const response = await fetch("https://api.github.com/users/hadley/orgs");
-  // const jsonData = await response.json();
-  // console.log(jsonData);
-
-  // for (let i = 0; i < jsonData.length; i++) {
-  //   console.log("iterating...", i)
-  //   const name = jsonData[i].login;
-  //   const scoreElements = document.createElement("div");
-  //   scoreElements.innerHTML = `<a>${name}</a>`;
-  //   responseList.appendChild(scoreElements);
-  // }
-
-  for (let i = 0; i < 100; i++) {
-    const userName = "Wotori";
-    const scoreElements = document.createElement("div");
-    scoreElements.innerHTML = `<p style="margin: 3px">${
-      i + 1
-    } - ${userName} - score</p>`;
-    responseList.appendChild(scoreElements);
-  }
+  while (responseList.firstChild) {
+    responseList.removeChild(responseList.firstChild);
+  }  
+  let users = getUserLocal()
+  if ( users ) {
+    users.sort((a, b) => b.score - a.score)
+    saveWinnerLocal(users[0])
+    for (let i = 0; i < users.length; i++) {
+      const userName = users[i].name;
+      const score = users[i].score;
+      const address = users[i].address;
+      const abbreviatedAddress = `${address.substring(0, 4)}...${address.substring(address.length - 3)}`
+      const scoreElements = document.createElement("div");
+      const line = `${(i + 1).toString().padEnd(4, "_")}${userName.padEnd(15, "_")}${abbreviatedAddress.padEnd(15, "_")}score:${score}`;
+      scoreElements.innerHTML = `<p style="margin: 3px">
+      ${line}</p>`;
+      responseList.appendChild(scoreElements);
+    }
+  } else {
+    saveUserLocal([])
+  }; 
 }
 
 window.onload = () => {
