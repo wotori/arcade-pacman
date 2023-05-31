@@ -958,7 +958,7 @@ class Pacman {
     this.backgroundOffsetPixels = 0;
     const bgSize = this.measurement * this.spriteFrames;
     this.animationTarget.style.backgroundSize = `${bgSize}px`;
-    this.animationTarget.style.backgroundImage = 'url(/'
+    this.animationTarget.style.backgroundImage = 'url(style/'
       + 'graphics/spriteSheets/characters/pacman/pacman_death.svg)';
     this.animationTarget.style.backgroundPosition = '0px 0px';
     this.pacmanArrow.style.backgroundImage = '';
