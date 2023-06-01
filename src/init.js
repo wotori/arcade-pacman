@@ -1,11 +1,12 @@
-import { GameCoordinator } from "./app";
-import { executeTransaction } from "../src/execute";
-import styles from "./app.css";
-import { connectKeplr, loadData } from "../src/keplr";
-import { getUserLocal, saveUserLocal, saveWinnerLocal } from "../src/utils";
+
+import { executeTransaction } from "./execute";
+import styles from "../app/app.css";
+import { connectKeplr, loadData } from "./keplr";
+import { getUserLocal, saveUserLocal, saveWinnerLocal } from "./utils";
+import { GameCoordinator } from "../app/scripts/core/gameCoordinator";
 
 export function initCoordinator() {
-  console.log("init coordinator");
+  console.log("init coordinator: ", GameCoordinator);
   let gameCoordinator = new GameCoordinator();
   console.log("gameCoordinator is laoded", gameCoordinator);
 }

@@ -3,8 +3,8 @@
 This repository is a fork from the original [pacman-js](https://github.com/bward2/pacman-js) project. The objective of this project is to implement a scoreboard and update the source project to be compatible with the latest version of Parcel and JavaScript in general. Additionally, import/export features was implemented for smooth comilation with Parcel.
 ****
 <p float="left">
-  <img src="pacman_1.png" width="300" />
-  <img src="pacman_2.png" width="300" /> 
+  <img src="public/pacman_1.png" width="300" />
+  <img src="public/pacman_2.png" width="300" /> 
 </p>
 
 
@@ -12,7 +12,7 @@ This repository is a fork from the original [pacman-js](https://github.com/bward
 
 - Basic score board implementation
 - Parcel compilation and development
-- Further updates will be made in the near future, probably...
+- Execute cosmos based smart contract on game start and end for score query and record
 
 ## Installation
 

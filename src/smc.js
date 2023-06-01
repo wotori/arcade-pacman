@@ -1,5 +1,5 @@
-import { signingClient, walletAddress } from "../src/keplr";
-import { getUserLocal, saveUserLocal } from "../src/utils";
+import { signingClient, walletAddress } from "./keplr";
+import { getUserLocal, saveUserLocal } from "./utils";
 
 console.log("init smc module...");
 

@@ -1,6 +1,6 @@
-class SoundManager {
+export class SoundManager {
   constructor() {
-    this.baseUrl = 'app/style/audio/';
+    this.baseUrl = 'style/audio/';
     this.fileFormat = 'mp3';
     this.masterVolume = 1;
     this.paused = false;

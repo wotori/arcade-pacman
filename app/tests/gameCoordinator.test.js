@@ -384,7 +384,7 @@ describe('gameCoordinator', () => {
       comp.lives = 3;
 
       comp.updateExtraLivesDisplay();
-      assert(spy.calledWith('src', 'app/style/graphics/extra_life.svg'));
+      assert(spy.calledWith('src', 'style/graphics/extra_life.svg'));
       assert(spy.calledThrice);
     });
   });
@@ -939,7 +939,7 @@ describe('gameCoordinator', () => {
       comp.remainingDots = 0;
       comp.removeTimer = sinon.fake();
       comp.updateExtraLivesDisplay = sinon.fake();
-      const imgBase = 'app/style//graphics/spriteSheets/maze/';
+      const imgBase = 'style//graphics/spriteSheets/maze/';
 
       comp.advanceLevel();
       assert(!comp.allowKeyPresses);

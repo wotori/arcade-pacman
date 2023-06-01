@@ -23,7 +23,7 @@
     "serve": "http-server ./dist",
     "clear": "rm -rf .parcel-cache && rm -rf dist",
     "ghp": "git subtree push --prefix dist origin gh-pages",
-    "deploy": "gh-pages -d dist"
+    "deploy": "yarn buildghp && gh-pages -d dist"
   },
   "dependencies": {
     "@archwayhq/arch3.js": "^0.2.0",

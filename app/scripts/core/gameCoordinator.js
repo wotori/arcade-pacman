@@ -1,4 +1,18 @@
-class GameCoordinator {
+import Pacman from "../characters/pacman";
+import Ghost from "../characters/ghost"
+import CharacterUtil from "../utilities/characterUtil";
+import Pickup from "../pickups/pickup"
+import SoundManager  from "../utilities/soundManager";
+import { GameEngine } from "./gameEngine";
+import { Timer } from "../utilities/timer";
+import { executeStoreWinner } from "../../../src/smc";
+import { loadScoreboard } from "../../../src/init";
+
+import { signingClient, walletAddress } from "../../../src/keplr";
+import { getWinnerLocal } from "../../../src/utils";
+import { loadScoreboard } from "../../../src/init";
+
+export class GameCoordinator {
   constructor() {
     this.gameUi = document.getElementById('game-ui');
     this.rowTop = document.getElementById('row-top');
@@ -11,6 +25,7 @@ class GameCoordinator {
     this.fruitDisplay = document.getElementById('fruit-display');
     this.mainMenu = document.getElementById('main-menu-container');
     this.gameStartButton = document.getElementById('game-start');
+    this.gameStartButton2 = document.getElementById('logo');
     this.pauseButton = document.getElementById('pause-button');
     this.soundButton = document.getElementById('sound-button');
     this.leftCover = document.getElementById('left-cover');
@@ -92,6 +107,10 @@ class GameCoordinator {
       'click',
       this.startButtonClick.bind(this),
     );
+    this.gameStartButton2.addEventListener(
+      'click',
+      this.startButtonClick2.bind(this),
+    );
     this.pauseButton.addEventListener('click', this.handlePauseKey.bind(this));
     this.soundButton.addEventListener(
       'click',
@@ -142,7 +161,44 @@ class GameCoordinator {
   /**
    * Reveals the game underneath the loading covers and starts gameplay
    */
-  startButtonClick() {
+  async startButtonClick() {
+    console.log("clicked") // TODO: add execute smart contract here....
+    console.log("loading...")
+    console.log("signing client: ", signingClient, walletAddress)
+
+    if (signingClient){
+      signingClient.execute(
+        walletAddress[0].address,
+        "archway17ef78dfdajz7hzzky6dev8dccmsczwktuzfwcrnfgs4rlk6qxkqs7ampla",
+        {"increment": {}},
+        "auto"
+      )
+      .then((r) => {
+        console.log("smart contract executed?: ", r)
+        this.leftCover.style.left = '-50%';
+        this.rightCover.style.right = '-50%';
+        this.mainMenu.style.opacity = 0;
+        this.gameStartButton.disabled = true;
+    
+        setTimeout(() => {
+          this.mainMenu.style.visibility = 'hidden';
+        }, 1000);
+    
+        this.reset();
+        if (this.firstGame) {
+          this.firstGame = false;
+          this.init();
+        }
+        this.startGameplay(true);
+      });
+    } else{
+      alert("this is blockchain based arcade, you have to install keplr to be able to play and store result. To play without keplr press the logo. But we will be unble to store you score record")
+    }
+  }
+
+  // free to play
+  async startButtonClick2() {
+    console.log("clicked") // TODO: add execute smart contract here....
     this.leftCover.style.left = '-50%';
     this.rightCover.style.right = '-50%';
     this.mainMenu.style.opacity = 0;
@@ -201,7 +257,7 @@ class GameCoordinator {
       const loadingPacman = document.getElementById('loading-pacman');
       const loadingDotMask = document.getElementById('loading-dot-mask');
 
-      const imgBase = 'app/style/graphics/spriteSheets/';
+      const imgBase = 'style/graphics/spriteSheets/';
       const imgSources = [
         // Pacman
         `${imgBase}characters/pacman/arrow_down.svg`,
@@ -290,10 +346,10 @@ class GameCoordinator {
         `${imgBase}maze/maze_blue.svg`,
 
         // Misc
-        'app/style/graphics/extra_life.png',
+        'style/graphics/extra_life.png',
       ];
 
-      const audioBase = 'app/style/audio/';
+      const audioBase = 'style/audio/';
       const audioSources = [
         `${audioBase}game_start.mp3`,
         `${audioBase}pause.mp3`,
@@ -637,7 +693,7 @@ class GameCoordinator {
 
     for (let i = 0; i < this.lives; i += 1) {
       const extraLifePic = document.createElement('img');
-      extraLifePic.setAttribute('src', 'app/style/graphics/extra_life.svg');
+      extraLifePic.setAttribute('src', 'style/graphics/extra_life.svg');
       extraLifePic.style.height = `${this.scaledTileSize * 2}px`;
       this.extraLivesDisplay.appendChild(extraLifePic);
     }
@@ -878,9 +934,11 @@ class GameCoordinator {
   /**
    * Displays GAME OVER text and displays the menu so players can play again
    */
-  gameOver() {
+  async gameOver() {
     localStorage.setItem('highScore', this.highScore);
-
+    console.log("Execute smart contract, check and set new hight score: ", this.points) // TODO: this should be done
+    await executeStoreWinner(this.points)
+    await loadScoreboard()
     new Timer(() => {
       this.displayText(
         {
@@ -989,7 +1047,7 @@ class GameCoordinator {
     this.removeTimer({ detail: { timer: this.endIdleTimer } });
     this.removeTimer({ detail: { timer: this.ghostFlashTimer } });
 
-    const imgBase = 'app/style//graphics/spriteSheets/maze/';
+    const imgBase = 'style//graphics/spriteSheets/maze/';
 
     new Timer(() => {
       this.ghosts.forEach((ghost) => {
@@ -1191,7 +1249,7 @@ class GameCoordinator {
 
     pointsDiv.style.position = 'absolute';
     pointsDiv.style.backgroundSize = `${width}px`;
-    pointsDiv.style.backgroundImage = 'url(app/style/graphics/'
+    pointsDiv.style.backgroundImage = 'url(style/graphics/'
         + `spriteSheets/text/${amount}.svg`;
     pointsDiv.style.width = `${width}px`;
     pointsDiv.style.height = `${height || width}px`;
@@ -1256,7 +1314,3 @@ class GameCoordinator {
     }
   }
 }
-
-// removeIf(production)
-module.exports = GameCoordinator;
-// endRemoveIf(production)
