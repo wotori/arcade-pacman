@@ -117,14 +117,10 @@ export class GameCoordinator {
       this.soundButtonClick.bind(this),
     );
 
-    const head = document.getElementsByTagName('head')[0];
-    const link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.href = 'app/app.css';
-
-    link.onload = this.preloadAssets.bind(this);
-
-    head.appendChild(link);
+    setTimeout(() => {
+      this.preloadAssets();
+    }, 100);
+    
   }
 
   /**
