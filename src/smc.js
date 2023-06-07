@@ -1,3 +1,4 @@
+import { loadScoreboard } from "./init";
 import { signingClient, walletAddress } from "./keplr";
 import { getUserLocal, saveUserLocal } from "./utils";
 
@@ -18,7 +19,7 @@ export async function executeStoreWinner(score) {
 
   // TODO: add method to check if user beat the record before the smart contract execution
   let storedUsers = getUserLocal();
-  if (storedUsers && storedUsers.length == 100) {
+  if (storedUsers && storedUsers.length == 100) { // TODO: read contrac max, keep from useless transactions...
     storedUsers.sort((a, b) => b.score - a.score);
     lastUser = storedUsers[storedUsers.length - 1];
     let betterThenLast = userToStore.score >= lastUser.score;
@@ -30,7 +31,7 @@ export async function executeStoreWinner(score) {
     }
   } else {
     storedUsers.push(userToStore);
-    saveUserLocal(storedUsers);
+    // saveUserLocal(storedUsers); // save to local storage for development
     saveUserContact(userToStore);
   }
 }
@@ -54,6 +55,7 @@ export function saveUserContact(user) {
     )
     .then((response) => {
       console.log("executed after finishing the game. Response: ", response);
+      loadScoreboard()
       alert(
         `execute smart contract\n User ${user.name}: with score: ${user.score}`
       );
