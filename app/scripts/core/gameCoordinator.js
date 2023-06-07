@@ -164,7 +164,7 @@ export class GameCoordinator {
 
     if (signingClient){
       signingClient.execute(
-        walletAddress[0].address,
+        walletAddress,
         "archway17ef78dfdajz7hzzky6dev8dccmsczwktuzfwcrnfgs4rlk6qxkqs7ampla",
         {"increment": {}},
         "auto"
@@ -847,7 +847,7 @@ export class GameCoordinator {
     if (this.points > (this.highScore || 0)) {
       this.highScore = this.points;
       this.highScoreDisplay.innerText = this.points;
-      localStorage.setItem('highScore', this.highScore);
+      // localStorage.setItem('highScore', this.highScore); // this not need anymore as we read this data from smart contract
     }
 
     if (this.points >= 10000 && !this.extraLifeGiven) {
@@ -931,10 +931,8 @@ export class GameCoordinator {
    * Displays GAME OVER text and displays the menu so players can play again
    */
   async gameOver() {
-    localStorage.setItem('highScore', this.highScore);
     console.log("Execute smart contract, check and set new hight score: ", this.points) // TODO: this should be done
     await executeStoreWinner(this.points) // TODO: move to server side 
-    await loadScoreboard()
     new Timer(() => {
       this.displayText(
         {

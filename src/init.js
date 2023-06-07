@@ -34,7 +34,9 @@ export async function loadScoreboard() {
   let users = response.scores;
   if (users) {
     users.sort((a, b) => b.score - a.score);
-    saveWinnerLocal(users[0]);
+    console.log("sorted users:", users);
+    // saveWinnerLocal(users[0]); // localStorage for development without contract
+    localStorage.setItem("highScore", users[0].score);
     for (let i = 0; i < users.length; i++) {
       const userName = users[i].name;
       const score = users[i].score;

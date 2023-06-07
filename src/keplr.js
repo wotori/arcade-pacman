@@ -57,11 +57,12 @@ export let walletAddress;
 export let signingClient;
 
 export async function initKeplr() {
-  connectKeplr()
+  connectKeplr();
   // get wallet address
   offlineSigner = window.getOfflineSigner(CHAIN_ID);
   walletAddress = await offlineSigner.getAccounts();
-  console.log("user wallet loaded: ", walletAddress[0].address);
+  walletAddress = walletAddress[0].address;
+  console.log("user wallet loaded: ", walletAddress);
 
   signingClient = await SigningCosmWasmClient.connectWithSigner(
     RPC,
