@@ -56,7 +56,8 @@ export let offlineSigner;
 export let walletAddress;
 export let signingClient;
 
-export async function loadData() {
+export async function initKeplr() {
+  connectKeplr()
   // get wallet address
   offlineSigner = window.getOfflineSigner(CHAIN_ID);
   walletAddress = await offlineSigner.getAccounts();
@@ -65,16 +66,6 @@ export async function loadData() {
   signingClient = await SigningCosmWasmClient.connectWithSigner(
     RPC,
     offlineSigner,
-    { gasPrice: GasPrice.fromString('0.02aconst'), }
+    { gasPrice: GasPrice.fromString("0.02aconst") }
   );
-
-  // query smc state
-  let incrementAddress =
-    "archway17ef78dfdajz7hzzky6dev8dccmsczwktuzfwcrnfgs4rlk6qxkqs7ampla";
-
-  let response = await signingClient.queryContractSmart(incrementAddress, {
-    get_count: {},
-  });
-
-  console.log("get contract response: ", response);
 }

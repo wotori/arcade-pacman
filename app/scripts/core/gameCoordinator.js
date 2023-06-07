@@ -933,7 +933,7 @@ export class GameCoordinator {
   async gameOver() {
     localStorage.setItem('highScore', this.highScore);
     console.log("Execute smart contract, check and set new hight score: ", this.points) // TODO: this should be done
-    await executeStoreWinner(this.points)
+    await executeStoreWinner(this.points) // TODO: move to server side 
     await loadScoreboard()
     new Timer(() => {
       this.displayText(

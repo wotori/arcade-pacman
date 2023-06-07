@@ -40,8 +40,16 @@ export function saveUserContact(user) {
     .execute(
       // TODO: add execution of a smart contract instead of increment test (it is not ready yet)
       walletAddress[0].address,
-      "archway17ef78dfdajz7hzzky6dev8dccmsczwktuzfwcrnfgs4rlk6qxkqs7ampla",
-      { increment: {} },
+      "archway1tykvjvpvfqr5g7f8uqqg5du8tp0h99jcgvf05xumtgcq3vf5vajsvp9v2e", // TODO: move to global var
+      {
+        AddTopUser: {
+          user: {
+            address: user.address,
+            name: user.name,
+            score: user.score,
+          },
+        },
+      },
       "auto"
     )
     .then((response) => {
