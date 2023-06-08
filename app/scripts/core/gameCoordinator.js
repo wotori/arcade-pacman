@@ -6,7 +6,6 @@ import SoundManager  from "../utilities/soundManager";
 import { GameEngine } from "./gameEngine";
 import { Timer } from "../utilities/timer";
 import { executeStoreWinner } from "../../../src/smc";
-import { loadScoreboard } from "../../../src/init";
 
 import { signingClient, smartContract, walletAddress } from "../../../src/keplr";
 import { getWinnerLocal } from "../../../src/utils";
@@ -198,25 +197,25 @@ export class GameCoordinator {
       alert("this is blockchain based arcade, you have to install keplr to be able to play and store result. To play without keplr press the logo. But we will be unble to store you score record")
     }
   }
-
+  // MARKER FREE GAME
   // free to play
   async startButtonClick2() {
     console.log("clicked")
-    this.leftCover.style.left = '-50%';
-    this.rightCover.style.right = '-50%';
-    this.mainMenu.style.opacity = 0;
-    this.gameStartButton.disabled = true;
+    // this.leftCover.style.left = '-50%';
+    // this.rightCover.style.right = '-50%';
+    // this.mainMenu.style.opacity = 0;
+    // this.gameStartButton.disabled = true;
 
-    setTimeout(() => {
-      this.mainMenu.style.visibility = 'hidden';
-    }, 1000);
+    // setTimeout(() => {
+    //   this.mainMenu.style.visibility = 'hidden';
+    // }, 1000);
 
-    this.reset();
-    if (this.firstGame) {
-      this.firstGame = false;
-      this.init();
-    }
-    this.startGameplay(true);
+    // this.reset();
+    // if (this.firstGame) {
+    //   this.firstGame = false;
+    //   this.init();
+    // }
+    // this.startGameplay(true);
   }
 
   /**

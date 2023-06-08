@@ -59,8 +59,8 @@ export async function loadScoreboard() {
 
 window.onload = async () => {
   initCoordinator();
-  await initKeplr();
   await initBackendWallet();
+  await initKeplr();
   loadScoreboard();
   // executeTransaction() // test transaction
   document.getElementById("test-store").addEventListener("click", function () {
