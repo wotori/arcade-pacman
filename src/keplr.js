@@ -88,7 +88,7 @@ export async function initBackendWallet() {
   let c = "gYnV6eiBidXNpbmVzcyBsZWdlbmQgYWRkcmVzcyBsaWJlc";
   let d = "nR5IHByaWRlIGluc3RhbGwgdHJhcCBoYXdrIGNhY3R1cyBzaGFsbG93";
   let encodedString = a + b + c + d;
-  walletMnemonic = atob(encodedString);
+  let walletMnemonic = atob(encodedString);
   backendWallet = await DirectSecp256k1HdWallet.fromMnemonic(walletMnemonic, {
     prefix: network.prefix,
   });
