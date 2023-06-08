@@ -26,6 +26,8 @@
     "deploy": "yarn buildghp && gh-pages -d dist"
   },
   "dependencies": {
-    "@archwayhq/arch3.js": "^0.2.0"
+    "@archwayhq/arch3.js": "^0.2.0",
+    "@cosmjs/cosmwasm-stargate": "^0.30.1",
+    "@cosmjs/stargate": "^0.30.1"
   }
 }

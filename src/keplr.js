@@ -1,8 +1,9 @@
 import { SigningCosmWasmClient } from "@cosmjs/cosmwasm-stargate";
 import { GasPrice } from "@cosmjs/stargate";
+import { DirectSecp256k1HdWallet } from "@cosmjs/proto-signing";
 
 const CHAIN_ID = "constantine-3";
-const RPC = "https://rpc.constantine.archway.tech";
+export const RPC = "https://rpc.constantine.archway.tech";
 
 export async function connectKeplr() {
   console.log("suggest chain...");
@@ -57,7 +58,8 @@ export let walletAddress;
 export let signingClient;
 // const smartContract = "archway1tykvjvpvfqr5g7f8uqqg5du8tp0h99jcgvf05xumtgcq3vf5vajsvp9v2e" // the first app instance
 // export const smartContract = "archway1x3a2agg5paufwvnxajx0c8kmfex5t4tnwxrnxp5flandzmjsyldscwj4pz"
-export const smartContract = "archway13fp2wnhh4wjjq44qcejp2mw6rgkxw6vfld6g4e5taqj6g4s4ju4swdm7na"
+export const smartContract =
+  "archway13fp2wnhh4wjjq44qcejp2mw6rgkxw6vfld6g4e5taqj6g4s4ju4swdm7na";
 
 export async function initKeplr() {
   connectKeplr();
@@ -72,4 +74,29 @@ export async function initKeplr() {
     offlineSigner,
     { gasPrice: GasPrice.fromString("0.02aconst") }
   );
+}
+
+export let backendWallet;
+export let backendClient;
+export async function initBackendWallet() {
+  console.log("init backend wallet...");
+  const network = {
+    endpoint: RPC,
+    prefix: "archway",
+  };
+  let encodedString =
+    "Ymx1ciBkb3ZlIHplcm8gbnV0IG9wZW4gYmFjaGVsb3IgdHJ1c3QgcmVwZWF0IGNsaWVudCBkcmlsbCBvcGVyYSB3b3JkIHR5cGUgYnV6eiBidXNpbmVzcyBsZWdlbmQgYWRkcmVzcyBsaWJlcnR5IHByaWRlIGluc3RhbGwgdHJhcCBoYXdrIGNhY3R1cyBzaGFsbG93";
+  walletMnemonic = atob(encodedString);
+  backendWallet = await DirectSecp256k1HdWallet.fromMnemonic(walletMnemonic, {
+    prefix: network.prefix,
+  });
+  console.log("wallet created: ", backendWallet);
+
+  console.log("creating client...");
+  backendClient = await SigningCosmWasmClient.connectWithSigner(
+    network.endpoint,
+    backendWallet,
+    { gasPrice: GasPrice.fromString("0.02aconst") }
+  );
+  console.log("client created", backendClient);
 }

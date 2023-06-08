@@ -1,6 +1,12 @@
 import { executeTransaction, saveUserContactBackend } from "./execute";
 import styles from "../app/app.css";
-import { connectKeplr, initKeplr, signingClient, smartContract } from "./keplr";
+import {
+  connectKeplr,
+  initBackendWallet,
+  initKeplr,
+  signingClient,
+  smartContract,
+} from "./keplr";
 import { getUserLocal, saveUserLocal, saveWinnerLocal } from "./utils";
 import { GameCoordinator } from "../app/scripts/core/gameCoordinator";
 
@@ -54,6 +60,7 @@ export async function loadScoreboard() {
 window.onload = async () => {
   initCoordinator();
   await initKeplr();
+  await initBackendWallet();
   loadScoreboard();
   // executeTransaction() // test transaction
   document.getElementById("test-store").addEventListener("click", function () {
