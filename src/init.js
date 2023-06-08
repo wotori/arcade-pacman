@@ -1,6 +1,6 @@
-import { executeTransaction } from "./execute";
+import { executeTransaction, saveUserContactBackend } from "./execute";
 import styles from "../app/app.css";
-import { connectKeplr, initKeplr, signingClient } from "./keplr";
+import { connectKeplr, initKeplr, signingClient, smartContract } from "./keplr";
 import { getUserLocal, saveUserLocal, saveWinnerLocal } from "./utils";
 import { GameCoordinator } from "../app/scripts/core/gameCoordinator";
 
@@ -11,15 +11,7 @@ export function initCoordinator() {
 }
 
 export async function loadScoreboard() {
-  // query smc state
-  // let incrementAddress =
-  //   "archway17ef78dfdajz7hzzky6dev8dccmsczwktuzfwcrnfgs4rlk6qxkqs7ampla";
-  // let response = await signingClient.queryContractSmart(incrementAddress, {
-  //   get_count: {},
-  // });
-
-  let scoreboardAddress =
-    "archway1tykvjvpvfqr5g7f8uqqg5du8tp0h99jcgvf05xumtgcq3vf5vajsvp9v2e";
+  let scoreboardAddress = smartContract;
   let response = await signingClient.queryContractSmart(scoreboardAddress, {
     ScoreList: {},
   });
@@ -64,4 +56,8 @@ window.onload = async () => {
   await initKeplr();
   loadScoreboard();
   // executeTransaction() // test transaction
+  document.getElementById("test-store").addEventListener("click", function () {
+    const user = { name: "Wotori", address: "archway####", score: 27127 };
+    saveUserContactBackend(user);
+  });
 };

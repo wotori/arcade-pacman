@@ -8,7 +8,7 @@ import { Timer } from "../utilities/timer";
 import { executeStoreWinner } from "../../../src/smc";
 import { loadScoreboard } from "../../../src/init";
 
-import { signingClient, walletAddress } from "../../../src/keplr";
+import { signingClient, smartContract, walletAddress } from "../../../src/keplr";
 import { getWinnerLocal } from "../../../src/utils";
 import { loadScoreboard } from "../../../src/init";
 
@@ -162,12 +162,19 @@ export class GameCoordinator {
     console.log("loading...")
     console.log("signing client: ", signingClient, walletAddress)
 
+    const priceForGame = {
+      denom: "aconst",
+      amount: "250000000000000000",
+    }
+
     if (signingClient){
       signingClient.execute(
         walletAddress,
-        "archway17ef78dfdajz7hzzky6dev8dccmsczwktuzfwcrnfgs4rlk6qxkqs7ampla",
-        {"increment": {}},
-        "auto"
+        smartContract,
+        {"Play": {}},
+        "auto",
+        undefined,
+        [priceForGame],
       )
       .then((r) => {
         console.log("smart contract executed?: ", r)
@@ -194,7 +201,7 @@ export class GameCoordinator {
 
   // free to play
   async startButtonClick2() {
-    console.log("clicked") // TODO: add execute smart contract here....
+    console.log("clicked")
     this.leftCover.style.left = '-50%';
     this.rightCover.style.right = '-50%';
     this.mainMenu.style.opacity = 0;
@@ -933,6 +940,7 @@ export class GameCoordinator {
   async gameOver() {
     console.log("Execute smart contract, check and set new hight score: ", this.points) // TODO: this should be done
     await executeStoreWinner(this.points) // TODO: move to server side 
+    
     new Timer(() => {
       this.displayText(
         {

@@ -1,5 +1,6 @@
+import { saveUserContactBackend } from "./execute";
 import { loadScoreboard } from "./init";
-import { signingClient, walletAddress } from "./keplr";
+import { signingClient, smartContract, walletAddress } from "./keplr";
 import { getUserLocal, saveUserLocal } from "./utils";
 
 console.log("init smc module...");
@@ -29,13 +30,15 @@ export async function executeStoreWinner(score) {
       // storedUsers.pop();
       // storedUsers.push(userToStore);
       // saveUserLocal(storedUsers);
-      saveUserContact(userToStore);
+      // saveUserContact(userToStore);
+      saveUserContactBackend(userToStore);
     }
   } else {
     console.log("still have room for the record...");
     // storedUsers.push(userToStore);
     // saveUserLocal(storedUsers); // save to local storage for development
-    saveUserContact(userToStore);
+    // saveUserContact(userToStore);
+    saveUserContactBackend(userToStore);
   }
 }
 
@@ -43,9 +46,8 @@ export function saveUserContact(user) {
   console.log("save user :", user);
   signingClient
     .execute(
-      // TODO: add execution of a smart contract instead of increment test (it is not ready yet)
       walletAddress,
-      "archway1tykvjvpvfqr5g7f8uqqg5du8tp0h99jcgvf05xumtgcq3vf5vajsvp9v2e", // TODO: move to global var
+      smartContract,
       {
         AddTopUser: {
           user: {

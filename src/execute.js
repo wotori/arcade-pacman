@@ -1,40 +1,46 @@
 import { SigningArchwayClient } from "@archwayhq/arch3.js";
 import { DirectSecp256k1HdWallet } from "@cosmjs/proto-signing";
+import { smartContract, walletAddress } from "./keplr";
+import { loadScoreboard } from "./init";
 
-export async function executeTransaction() {
+export async function saveUserContactBackend(user) {
+  // TODO: this should work at the backend side
   console.log("execute transaction");
   const network = {
-    chainId: "constantine-3",
     endpoint: "https://rpc.constantine.archway.tech",
     prefix: "archway",
   };
-  const alice = {
-    mnemonic:
-      "test",
-    address0: "archway1uwew6p8k70xa2lkzeujqcw430uky49zthsvc0y",
-  };
-  const wallet = await DirectSecp256k1HdWallet.fromMnemonic(alice.mnemonic, {
+  let encodedString =
+    "Ymx1ciBkb3ZlIHplcm8gbnV0IG9wZW4gYmFjaGVsb3IgdHJ1c3QgcmVwZWF0IGNsaWVudCBkcmlsbCBvcGVyYSB3b3JkIHR5cGUgYnV6eiBidXNpbmVzcyBsZWdlbmQgYWRkcmVzcyBsaWJlcnR5IHByaWRlIGluc3RhbGwgdHJhcCBoYXdrIGNhY3R1cyBzaGFsbG93";
+  const walletMnemonic = atob(encodedString);
+
+  console.log("wallet...");
+  const wallet = await DirectSecp256k1HdWallet.fromMnemonic(walletMnemonic, {
     prefix: network.prefix,
   });
+  console.log("wallet created: ", wallet);
+
+  console.log("creating client...");
   const client = await SigningArchwayClient.connectWithSigner(
     network.endpoint,
-    wallet,
-    {
-      // ...defaultSigningClientOptions,
-      prefix: network.prefix,
-    }
-  );
-  const contractAddress =
-    "archway17ef78dfdajz7hzzky6dev8dccmsczwktuzfwcrnfgs4rlk6qxkqs7ampla";
-  const msg = {
-    increment: {},
-  };
-  const { transactionHash } = await client.execute(
-    alice.address0,
-    contractAddress,
-    msg,
-    "auto"
+    wallet
   );
 
+  console.log("execute transaction with user:", user);
+  const { transactionHash } = await client.execute(
+    walletAddress,
+    smartContract,
+    {
+      AddTopUser: {
+        user: {
+          address: user.address,
+          name: user.name,
+          score: user.score,
+        },
+      },
+    },
+    "auto"
+  );
+  loadScoreboard();
   console.log("hash:", transactionHash);
 }
