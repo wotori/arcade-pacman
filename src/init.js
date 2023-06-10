@@ -17,8 +17,7 @@ export function initCoordinator() {
 }
 
 export async function loadScoreboard() {
-  let scoreboardAddress = smartContract;
-  let response = await signingClient.queryContractSmart(scoreboardAddress, {
+  let response = await signingClient.queryContractSmart(smartContract, {
     ScoreList: {},
   });
 
@@ -57,11 +56,41 @@ export async function loadScoreboard() {
   }
 }
 
+export async function loadPrizePoolAndTotalDistributed() {
+  let response = await signingClient.queryContractSmart(smartContract, {
+    PrizePool: {},
+  });
+  prizePool = response.prize_pool / 10 ** 18;
+
+  console.log("prize pool is: ", prizePool);
+  var prizePoolElement = document.getElementById("prize-pool");
+  prizePoolElement.innerHTML = "Current prize pool is: " + prizePool + " const";
+
+  let response2 = await signingClient.queryContractSmart(smartContract, {
+    TotalDistributed: {},
+  });
+  let totalDistributed = response2.total_distributed;
+  if (totalDistributed !== "0") {
+    totalDistributed = totalDistributed / 10 ** 18;
+  }
+  var prizePoolElement = document.getElementById("total-distributed");
+  prizePoolElement.innerHTML =
+    "Total prize distributed: " + totalDistributed + " const";
+
+  let response3 = await signingClient.queryContractSmart(smartContract, {
+    GameCounter: {},
+  });
+  let GameCounter = response3.game_counter;
+  var prizePoolElement = document.getElementById("total-games");
+  prizePoolElement.innerHTML = "Games played: " + GameCounter;
+}
+
 window.onload = async () => {
   initCoordinator();
   await initBackendWallet();
   await initKeplr();
-  loadScoreboard();
+  await loadScoreboard();
+  await loadPrizePoolAndTotalDistributed();
   // executeTransaction() // test transaction
   document.getElementById("test-store").addEventListener("click", function () {
     const user = { name: "Wotori", address: "archway####", score: 27127 };

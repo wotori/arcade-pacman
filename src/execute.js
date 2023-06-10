@@ -4,7 +4,7 @@ import {
   walletAddress,
   pacmanContract,
 } from "./keplr";
-import { loadScoreboard } from "./init";
+import { loadPrizePoolAndTotalDistributed, loadScoreboard } from "./init";
 
 export async function saveUserContactBackend(user) {
   // TODO: this should work at the backend side
@@ -23,6 +23,7 @@ export async function saveUserContactBackend(user) {
     },
     "auto"
   );
-  loadScoreboard();
+  await loadScoreboard();
+  await loadPrizePoolAndTotalDistributed();
   console.log("hash:", transactionHash);
 }

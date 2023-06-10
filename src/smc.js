@@ -1,5 +1,5 @@
 import { saveUserContactBackend } from "./execute";
-import { loadScoreboard } from "./init";
+import { loadPrizePoolAndTotalDistributed, loadScoreboard } from "./init";
 import { signingClient, smartContract, walletAddress } from "./keplr";
 import { getUserLocal, saveUserLocal } from "./utils";
 
@@ -42,7 +42,7 @@ export async function executeStoreWinner(score) {
   }
 }
 
-export function saveUserContact(user) {
+export async function saveUserContact(user) {
   console.log("save user :", user);
   signingClient
     .execute(

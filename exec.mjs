@@ -1,5 +1,5 @@
-import { SigningArchwayClient } from '@archwayhq/arch3.js';
-import { DirectSecp256k1HdWallet } from '@cosmjs/proto-signing';
+import { SigningArchwayClient } from "@archwayhq/arch3.js";
+import { DirectSecp256k1HdWallet } from "@cosmjs/proto-signing";
 import { GasPrice } from "@cosmjs/stargate";
 
 export let backendWallet;
