@@ -60,7 +60,7 @@ export async function loadPrizePoolAndTotalDistributed() {
   let response = await signingClient.queryContractSmart(smartContract, {
     PrizePool: {},
   });
-  prizePool = response.prize_pool / 10 ** 18;
+  let prizePool = response.prize_pool / 10 ** 18;
   console.log("response PrizePool: ", response);
 
   console.log("prize pool is: ", prizePool);
