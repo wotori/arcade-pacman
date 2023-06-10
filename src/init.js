@@ -61,28 +61,31 @@ export async function loadPrizePoolAndTotalDistributed() {
     PrizePool: {},
   });
   prizePool = response.prize_pool / 10 ** 18;
+  console.log("response PrizePool: ", response);
 
   console.log("prize pool is: ", prizePool);
-  var prizePoolElement = document.getElementById("prize-pool");
+  let prizePoolElement = document.getElementById("prize-pool");
   prizePoolElement.innerHTML = "Current prize pool is: " + prizePool + " const";
 
   let response2 = await signingClient.queryContractSmart(smartContract, {
     TotalDistributed: {},
   });
+  console.log("response TotalDistributed: ", response2);
   let totalDistributed = response2.total_distributed;
   if (totalDistributed !== "0") {
     totalDistributed = totalDistributed / 10 ** 18;
   }
-  var prizePoolElement = document.getElementById("total-distributed");
-  prizePoolElement.innerHTML =
+  let totalDistributedElem = document.getElementById("total-distributed");
+  totalDistributedElem.innerHTML =
     "Total prize distributed: " + totalDistributed + " const";
 
   let response3 = await signingClient.queryContractSmart(smartContract, {
     GameCounter: {},
   });
+  console.log("response GameCounter: ", response3);
   let GameCounter = response3.game_counter;
-  var prizePoolElement = document.getElementById("total-games");
-  prizePoolElement.innerHTML = "Games played: " + GameCounter;
+  let gameCounter = document.getElementById("total-games");
+  gameCounter.innerHTML = "Games played: " + GameCounter;
 }
 
 window.onload = async () => {
