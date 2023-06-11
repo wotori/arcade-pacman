@@ -59,7 +59,7 @@ export let signingClient;
 // const smartContract = "archway1tykvjvpvfqr5g7f8uqqg5du8tp0h99jcgvf05xumtgcq3vf5vajsvp9v2e" // the first app instance
 // export const smartContract = "archway1x3a2agg5paufwvnxajx0c8kmfex5t4tnwxrnxp5flandzmjsyldscwj4pz"
 export const smartContract =
-  "archway12mrqu3dnxxuhwh5h687mf0vlr9v087sujl0k9jgf2j2n7wq0c53q3atvvq";
+  "archway19lykvg8sgzhhy0lvdrq9fj3fw85wgfrkeh9663xesagrw9ny75qq99d86y";
 
 export async function initKeplr() {
   connectKeplr();

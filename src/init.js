@@ -95,8 +95,8 @@ window.onload = async () => {
   await loadScoreboard();
   await loadPrizePoolAndTotalDistributed();
   // executeTransaction() // test transaction
-  document.getElementById("test-store").addEventListener("click", function () {
-    const user = { name: "Wotori", address: "archway####", score: 27127 };
-    saveUserContactBackend(user);
-  });
+  // document.getElementById("test-store").addEventListener("click", function () {
+  //   const user = { name: "Wotori", address: "archway####", score: 27127 };
+  //   saveUserContactBackend(user);
+  // });
 };
