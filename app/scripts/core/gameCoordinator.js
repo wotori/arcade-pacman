@@ -194,7 +194,7 @@ export class GameCoordinator {
         this.startGameplay(true);
       });
     } else{
-      alert("this is blockchain based arcade, you have to install keplr to be able to play and store result. To play without keplr press the logo. But we will be unble to store you score record")
+      alert("This is a blockchain-based arcade on Archway testnet; you have to install Keplr to be able to play and store results. One game costs 0.25 CONST, aka a quarter in traditional arcade machines. Refresh the page after adding the keplr and testnet.")
     }
   }
   // MARKER FREE GAME
