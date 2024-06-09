@@ -5,12 +5,6 @@ import Pickup from "../pickups/pickup"
 import SoundManager  from "../utilities/soundManager";
 import { GameEngine } from "./gameEngine";
 import { Timer } from "../utilities/timer";
-import { executeStoreWinner } from "../../../src/smc";
-import { loadScoreboard } from "../../../src/init";
-
-import { signingClient, smartContract, walletAddress } from "../../../src/keplr";
-import { getWinnerLocal } from "../../../src/utils";
-import { loadScoreboard } from "../../../src/init";
 
 export class GameCoordinator {
   constructor() {
@@ -160,25 +154,7 @@ export class GameCoordinator {
   async startButtonClick() {
     console.log("clicked") // TODO: add execute smart contract here....
     console.log("loading...")
-    console.log("signing client: ", signingClient, walletAddress)
-
-    const priceForGame = {
-      denom: "aconst",
-      amount: "250000000000000000",
-    }
-
-    if (signingClient){
-      signingClient.execute(
-        walletAddress,
-        smartContract,
-        {"Play": {}},
-        "auto",
-        undefined,
-        [priceForGame],
-      )
-      .then((r) => {
-        console.log("smart contract executed?: ", r)
-        this.leftCover.style.left = '-50%';
+    this.leftCover.style.left = '-50%';
         this.rightCover.style.right = '-50%';
         this.mainMenu.style.opacity = 0;
         this.gameStartButton.disabled = true;
@@ -193,10 +169,6 @@ export class GameCoordinator {
           this.init();
         }
         this.startGameplay(true);
-      });
-    } else{
-      alert("this is blockchain based arcade, you have to install keplr to be able to play and store result. To play without keplr press the logo. But we will be unble to store you score record")
-    }
   }
 
   // free to play
@@ -938,9 +910,6 @@ export class GameCoordinator {
    * Displays GAME OVER text and displays the menu so players can play again
    */
   async gameOver() {
-    console.log("Execute smart contract, check and set new hight score: ", this.points) // TODO: this should be done
-    await executeStoreWinner(this.points) // TODO: move to server side 
-    
     new Timer(() => {
       this.displayText(
         {

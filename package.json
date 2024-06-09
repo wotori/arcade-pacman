@@ -3,7 +3,7 @@
   "source": "index.html",
   "browserslist": "> 25%, last 2 versions, not dead",
   "engines": {
-    "node": "18.4.0",
+    "node": "^18.4.0",
     "npm": "8.12.1"
   },
   "devDependencies": {
@@ -25,7 +25,5 @@
     "ghp": "git subtree push --prefix dist origin gh-pages",
     "deploy": "yarn buildghp && gh-pages -d dist"
   },
-  "dependencies": {
-    "@archwayhq/arch3.js": "^0.2.0"
-  }
+  "dependencies": {}
 }

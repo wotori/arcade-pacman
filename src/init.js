@@ -1,7 +1,4 @@
-import { executeTransaction, saveUserContactBackend } from "./execute";
 import styles from "../app/app.css";
-import { connectKeplr, initKeplr, signingClient, smartContract } from "./keplr";
-import { getUserLocal, saveUserLocal, saveWinnerLocal } from "./utils";
 import { GameCoordinator } from "../app/scripts/core/gameCoordinator";
 
 export function initCoordinator() {
