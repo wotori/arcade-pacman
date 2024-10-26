@@ -3,6 +3,7 @@ import styles from "../app/app.css";
 import { connectKeplr, initKeplr, signingClient, smartContract } from "./keplr";
 import { getUserLocal, saveUserLocal, saveWinnerLocal } from "./utils";
 import { GameCoordinator } from "../app/scripts/core/gameCoordinator";
+import { initSolana } from "./solanaWallet";
 
 export function initCoordinator() {
   console.log("init coordinator: ", GameCoordinator);
@@ -53,7 +54,9 @@ export async function loadScoreboard() {
 
 window.onload = async () => {
   initCoordinator();
-  await initKeplr();
+  // await initKeplr();
+  initSolana();
+  connectWallet();
   loadScoreboard();
   // executeTransaction() // test transaction
   document.getElementById("test-store").addEventListener("click", function () {

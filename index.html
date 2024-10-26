@@ -1,15 +1,23 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <script type="module" src='/src/init.js'></script>
-    <link rel='shortcut icon' type='image/x-icon' href='favicon.ico'>
-    <link href='https://fonts.googleapis.com/css?family=Press+Start+2P&display=swap' rel='stylesheet'>
-    <link href='https://fonts.googleapis.com/icon?family=Material+Icons'
-      rel='stylesheet'>
+    <script type="module" src="/src/init.js"></script>
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+    <link href="https://fonts.googleapis.com/css?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/@solana/wallet-adapter-react-ui/styles.css">
+    <link rel="stylesheet" href="styles.css"> 
+
     <title>Pacman Arcade</title>
   </head>
 
   <body>
+    <div id="wallet-container">
+      <button id="wallet-button" class="wallet-button">Connect Solana Phantom</button>
+      <p id="wallet-address">Address: </p>
+    </div>
+
+
     <div id='overflow-mask' class='overflow-mask'>
       <img id='backdrop' class='backdrop' src='./public/style/graphics/backdrop.png'>
 
@@ -22,9 +30,9 @@
         <button id='game-start' class='game-start'>
           PLAY!
         </button>
-        <button id='test-store' class='game-start'>
+        <!-- <button id='test-store' class='game-start'>
           test store
-        </button>
+        </button> -->
       <div style="display:flex; margin: 20px; padding: 10px; 
       align-items: center; 
       flex-direction: column; ">

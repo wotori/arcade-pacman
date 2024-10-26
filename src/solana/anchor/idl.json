@@ -1,0 +1,575 @@
+{
+  "address": "CSSnstKmeBuQoDxpdjUd4fdqXwtM237PmTyexjizdrBN",
+  "metadata": {
+    "name": "arcade_rewards",
+    "version": "0.1.0",
+    "spec": "0.1.0",
+    "description": "Created with Anchor"
+  },
+  "instructions": [
+    {
+      "name": "add_user_score",
+      "discriminator": [
+        42,
+        82,
+        206,
+        68,
+        219,
+        12,
+        218,
+        20
+      ],
+      "accounts": [
+        {
+          "name": "arcade_account",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  97,
+                  114,
+                  99,
+                  97,
+                  100,
+                  101,
+                  95,
+                  97,
+                  99,
+                  99,
+                  111,
+                  117,
+                  110,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "arcade_account.admin",
+                "account": "ArcadeAccount"
+              }
+            ]
+          }
+        },
+        {
+          "name": "admin",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "user",
+          "writable": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "user_score",
+          "type": {
+            "defined": {
+              "name": "UserScore"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "get_game_counter",
+      "discriminator": [
+        101,
+        209,
+        196,
+        195,
+        171,
+        193,
+        42,
+        213
+      ],
+      "accounts": [
+        {
+          "name": "arcade_account",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  97,
+                  114,
+                  99,
+                  97,
+                  100,
+                  101,
+                  95,
+                  97,
+                  99,
+                  99,
+                  111,
+                  117,
+                  110,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "arcade_account.admin",
+                "account": "ArcadeAccount"
+              }
+            ]
+          }
+        }
+      ],
+      "args": [],
+      "returns": "u64"
+    },
+    {
+      "name": "get_price_per_game",
+      "discriminator": [
+        5,
+        10,
+        213,
+        39,
+        21,
+        193,
+        25,
+        71
+      ],
+      "accounts": [
+        {
+          "name": "arcade_account",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  97,
+                  114,
+                  99,
+                  97,
+                  100,
+                  101,
+                  95,
+                  97,
+                  99,
+                  99,
+                  111,
+                  117,
+                  110,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "arcade_account.admin",
+                "account": "ArcadeAccount"
+              }
+            ]
+          }
+        }
+      ],
+      "args": [],
+      "returns": "u64"
+    },
+    {
+      "name": "get_top_users",
+      "discriminator": [
+        50,
+        247,
+        13,
+        220,
+        180,
+        21,
+        138,
+        91
+      ],
+      "accounts": [
+        {
+          "name": "arcade_account",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  97,
+                  114,
+                  99,
+                  97,
+                  100,
+                  101,
+                  95,
+                  97,
+                  99,
+                  99,
+                  111,
+                  117,
+                  110,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "arcade_account.admin",
+                "account": "ArcadeAccount"
+              }
+            ]
+          }
+        }
+      ],
+      "args": [],
+      "returns": {
+        "vec": {
+          "option": {
+            "defined": {
+              "name": "UserScore"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "get_total_price_distributed",
+      "discriminator": [
+        207,
+        174,
+        19,
+        203,
+        219,
+        124,
+        136,
+        41
+      ],
+      "accounts": [
+        {
+          "name": "arcade_account",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  97,
+                  114,
+                  99,
+                  97,
+                  100,
+                  101,
+                  95,
+                  97,
+                  99,
+                  99,
+                  111,
+                  117,
+                  110,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "arcade_account.admin",
+                "account": "ArcadeAccount"
+              }
+            ]
+          }
+        }
+      ],
+      "args": [],
+      "returns": "u64"
+    },
+    {
+      "name": "initialize",
+      "discriminator": [
+        175,
+        175,
+        109,
+        31,
+        13,
+        152,
+        155,
+        237
+      ],
+      "accounts": [
+        {
+          "name": "arcade_account",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  97,
+                  114,
+                  99,
+                  97,
+                  100,
+                  101,
+                  95,
+                  97,
+                  99,
+                  99,
+                  111,
+                  117,
+                  110,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "admin"
+              }
+            ]
+          }
+        },
+        {
+          "name": "admin",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "arcade_name",
+          "type": "string"
+        },
+        {
+          "name": "max_top_scores",
+          "type": "u8"
+        },
+        {
+          "name": "price_per_game",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "play",
+      "discriminator": [
+        213,
+        157,
+        193,
+        142,
+        228,
+        56,
+        248,
+        150
+      ],
+      "accounts": [
+        {
+          "name": "arcade_account",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  97,
+                  114,
+                  99,
+                  97,
+                  100,
+                  101,
+                  95,
+                  97,
+                  99,
+                  99,
+                  111,
+                  117,
+                  110,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "admin"
+              }
+            ]
+          }
+        },
+        {
+          "name": "user",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "admin",
+          "writable": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "lamports",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "update_price",
+      "discriminator": [
+        61,
+        34,
+        117,
+        155,
+        75,
+        34,
+        123,
+        208
+      ],
+      "accounts": [
+        {
+          "name": "arcade_account",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  97,
+                  114,
+                  99,
+                  97,
+                  100,
+                  101,
+                  95,
+                  97,
+                  99,
+                  99,
+                  111,
+                  117,
+                  110,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "arcade_account.admin",
+                "account": "ArcadeAccount"
+              }
+            ]
+          }
+        },
+        {
+          "name": "admin",
+          "writable": true,
+          "signer": true
+        }
+      ],
+      "args": [
+        {
+          "name": "new_price",
+          "type": "u64"
+        }
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "ArcadeAccount",
+      "discriminator": [
+        49,
+        13,
+        98,
+        70,
+        44,
+        47,
+        61,
+        120
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "IncorrectPaymentAmount",
+      "msg": "Incorrect payment amount"
+    },
+    {
+      "code": 6001,
+      "name": "Unauthorized",
+      "msg": "Unauthorized action"
+    },
+    {
+      "code": 6002,
+      "name": "InvalidUserAccount",
+      "msg": "Invalid user account"
+    }
+  ],
+  "types": [
+    {
+      "name": "ArcadeAccount",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "admin",
+            "type": "pubkey"
+          },
+          {
+            "name": "arcade_name",
+            "type": "string"
+          },
+          {
+            "name": "total_price_distributed",
+            "type": "u64"
+          },
+          {
+            "name": "game_counter",
+            "type": "u64"
+          },
+          {
+            "name": "max_top_scores",
+            "type": "u8"
+          },
+          {
+            "name": "price_per_game",
+            "type": "u64"
+          },
+          {
+            "name": "top_users",
+            "type": {
+              "vec": {
+                "option": {
+                  "defined": {
+                    "name": "UserScore"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "UserScore",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "score",
+            "type": "u64"
+          },
+          {
+            "name": "nickname",
+            "type": "string"
+          },
+          {
+            "name": "user_address",
+            "type": "pubkey"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+/* styles.css */
+
+/* Styles for the wallet container */
+#wallet-container {
+  position: fixed; /* Fixed positioning */
+  top: 10px; /* Top margin */
+  right: 10px; /* Right margin */
+  z-index: 1000; /* High z-index to be above other elements */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+/* Styles for the wallet button */
+.wallet-button {
+  padding: 10px 20px; /* Padding */
+  background-color: #8247e5; /* Background color */
+  color: white; /* Text color */
+  border: none; /* No border */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor on hover */
+  font-size: 16px; /* Font size */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Shadow for depth */
+  transition: background-color 0.3s ease; /* Smooth transition on hover */
+}
+
+/* Hover state for the wallet button */
+.wallet-button:hover {
+  background-color: #6a35c4; /* Change color on hover */
+}
+
+/* Styles for the connected state */
+.wallet-button.connected {
+  background-color: #28a745; /* Green background */
+}
+
+/* Styles for the disconnected state */
+.wallet-button.disconnected {
+  background-color: #6a35c4; /* Red background */
+}
+
+/* Styles for displaying the wallet address */
+#wallet-address {
+  margin-top: 5px; /* Top margin */
+  background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+  color: white; /* Text color */
+  padding: 5px 10px; /* Padding */
+  border-radius: 5px; /* Rounded corners */
+  font-size: 14px; /* Font size */
+  display: none; /* Hidden by default */
+}
+
+/* Show the wallet address when connected */
+#wallet-address.visible {
+  display: block;
+}
